@@ -18,6 +18,8 @@ object.")
   "Return the function for deserializing instance of `class`."
   (fn [class] class))
 
+(defmethod read-for :default [_] nil)
+
 (defn byteable?
   "Return true if `class` implements the Byteable protocol."
   [^Class class] (boolean (read-for class)))
