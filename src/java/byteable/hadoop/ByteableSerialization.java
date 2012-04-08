@@ -18,10 +18,10 @@ static {
     RT.var("clojure.core", "require").invoke(Symbol.intern(NS));
 }
 
-private final static Var initialize = RT.var(NS, "initialize-byteables");
-private final static Var serializer = RT.var(NS, "byteable-serializer");
-private final static Var deserializer = RT.var(NS, "byteable-deserializer");
-private final static Var byteable_p = RT.var("byteable.core", "byteable?");
+private static final Var initialize = RT.var(NS, "initialize-byteables");
+private static final Var serializer = RT.var(NS, "byteable-serializer");
+private static final Var deserializer = RT.var(NS, "byteable-deserializer");
+private static final Var byteable_p = RT.var("byteable.core", "byteable?");
 
 private boolean initialized = false;
 
