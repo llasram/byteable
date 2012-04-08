@@ -1,8 +1,8 @@
 # byteable
 
-I'm an app. Or maybe I'm a library? I haven't decided yet. 
-
-The choice is up to you!
+Simple protocol & multimethod based serialization for Clojure-defined types.
+Primarily intended to complement the Hadoop `Writable` serialization interface,
+but may be useful in other contexts as well.
 
 ## Usage
 
@@ -10,6 +10,6 @@ FIXME
 
 ## License
 
-Copyright © 2012 FIXME
+Copyright © 2012 Marshall T. Vandegrift
 
 Distributed under the Eclipse Public License, the same as Clojure.
