@@ -21,7 +21,7 @@ static {
 private final static Var initialize = RT.var(NS, "initialize-byteables");
 private final static Var serializer = RT.var(NS, "byteable-serializer");
 private final static Var deserializer = RT.var(NS, "byteable-deserializer");
-private final static Var byteable_p = RT.var("byteable.api", "byteable?");
+private final static Var byteable_p = RT.var("byteable.core", "byteable?");
 
 private boolean initialized = false;
 

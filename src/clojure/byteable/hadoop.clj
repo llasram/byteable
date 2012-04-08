@@ -1,6 +1,6 @@
 (ns byteable.hadoop
   (:require [clojure.string :as str]
-            [byteable.api :as b])
+            [byteable.core :as b])
   (:import [java.io DataInput DataInputStream DataOutput DataOutputStream]
            [org.apache.hadoop.conf Configuration]
            [org.apache.hadoop.io.serializer Deserializer Serializer]

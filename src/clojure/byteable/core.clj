@@ -1,4 +1,4 @@
-(ns byteable.api
+(ns byteable.core
   (:refer-clojure :exclude [read])
   (:require [clojure.string :as str])
   (:import [java.io DataInput DataOutput]))

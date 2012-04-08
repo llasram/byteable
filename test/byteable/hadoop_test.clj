@@ -1,6 +1,6 @@
 (ns byteable.hadoop-test
   (:use clojure.test)
-  (:require [byteable [api :as b] [hadoop]])
+  (:require [byteable.core :as b])
   (:import [java.io ByteArrayOutputStream ByteArrayInputStream
                     DataInput DataOutput]
            [byteable.hadoop ByteableSerialization]
