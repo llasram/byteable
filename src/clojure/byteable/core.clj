@@ -41,9 +41,10 @@ object.")
 (defn- extend-byteable-one
   [[class & forms]]
   (let [forms (map (partial fixup-meta class) forms)
-        [read write] (if (= 'read (ffirst forms)) forms (reverse forms))]
-    `(let [read# (fn ~@read), write# (fn ~@write)]
-       (extend ~class Byteable {:read read#, :write write#})
+        build-fmap #(assoc %1 (-> %2 first keyword) (list* 'fn %2))
+        fmap (reduce build-fmap {} forms)]
+    `(let [fmap# ~fmap, read# (:read fmap#)]
+       (extend ~class Byteable fmap#)
        (defmethod read-for ~class [_#] read#))))
 
 (defmacro extend-byteable
