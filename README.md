@@ -1,8 +1,8 @@
 # byteable
 
-Simple protocol-based serialization interface for Hadoop.  Primarily intended
-to complement the Hadoop `Writable` serialization interface, but may be useful
-in other contexts as well.
+Byteable is a Clojure protocol-based serialization interface for Hadoop.  It is
+primarily intended to complement the Hadoop `Writable` serialization interface,
+but may be useful in other contexts as well.
 
 ## Installation
 
