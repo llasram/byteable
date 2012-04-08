@@ -8,5 +8,20 @@
   :java-source-paths ["src/java"]
   :profiles
     {:dev {:dependencies [[org.apache.hadoop/hadoop-core "0.20.2-dev"]]
-           :warn-on-reflection true}
-     :release {:dependencies []}})
+           :warn-on-reflection true}})
+
+(ns leiningen.release
+  (:require [leiningen.core.eval :as eval]
+            [leiningen.jar :as jar]
+            [leiningen.pom :as pom]
+            [leiningen.with-profile :as wp]))
+(defn release [project]
+  (eval/prep project)
+  (let [project-m (meta project)
+        project-wp (-> project-m (:without-profiles project) (dissoc :prep-tasks))
+        project (with-meta (dissoc project :prep-tasks)
+                  (assoc project-m :without-profiles project-wp))]
+    ;; Potentially a bug, but :user profile entries ending up in JAR unless
+    ;; explicitly run tasks with only the "default" profile
+    (wp/with-profile project "default" "pom")
+    (wp/with-profile project "default" "jar")))
