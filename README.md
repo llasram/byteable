@@ -10,7 +10,7 @@ Byteable is in Clojars.  Add this `:dependency` to your
 [Leiningen](https://github.com/technomancy/leiningen) `project.clj`:
 
 ```clj
-[byteable "0.1.0-SNAPSHOT"]
+[byteable "0.1.0"]
 ```
 
 ## Usage
