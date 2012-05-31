@@ -1,4 +1,4 @@
-(defproject byteable "0.2.0"
+(defproject byteable "0.2.1-SNAPSHOT"
   :description "Clojure protocol-based serialization interface for Hadoop."
   :url "https://github.com/llasram/byteable"
   :license {:name "Eclipse Public License"
