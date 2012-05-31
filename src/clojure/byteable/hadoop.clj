@@ -6,22 +6,22 @@
            [org.apache.hadoop.io.serializer Deserializer Serializer]
            [byteable.hadoop ByteableSerialization]))
 
-(deftype ByteableSerializer [^:unsynchronized-mutable output]
+(deftype ByteableSerializer [^:unsynchronized-mutable output, bwrite]
   Serializer
   (open [this ostream]
     (set! output (if (instance? DataOutputStream ostream)
                    ostream
                    (DataOutputStream. ostream))))
   (serialize [this byteable]
-    (b/write byteable output))
+    (bwrite byteable output))
   (close [this]
     (when-let [output output]
       (.close ^DataOutputStream output))))
 
 (defn byteable-serializer
-  [class] (ByteableSerializer. nil))
+  [class] (ByteableSerializer. nil (b/write-for class)))
 
-(deftype ByteableDeserializer [^:unsynchronized-mutable input, class]
+(deftype ByteableDeserializer [^:unsynchronized-mutable input, bread]
   Deserializer
   (open [this istream]
     (set! input (if (instance? DataInputStream istream)
@@ -29,14 +29,14 @@
                   (DataInputStream. istream))))
   (deserialize [this byteable]
     (if (nil? byteable)
-      ((b/read-for class) nil input)
-      (b/read byteable input)))
+      (bread nil input)
+      (bread byteable input)))
   (close [this]
     (when-let [input input]
       (.close ^DataInputStream input))))
 
 (defn byteable-deserializer
-  [class] (ByteableDeserializer. nil class))
+  [class] (ByteableDeserializer. nil (b/read-for class)))
 
 (defn initialize-byteables
   [^Configuration conf]

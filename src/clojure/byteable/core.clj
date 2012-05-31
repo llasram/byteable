@@ -15,13 +15,19 @@ object.")
     "Serialize `this` to `output`."))
 
 (defmulti read-for
-  "Return the function for deserializing instance of `class`."
-  (fn [class] class))
+  "Return the function for deserializing instances of `class`."
+  identity)
 
 (defmethod read-for :default [_] nil)
 
+(defmulti write-for
+  "Return the function for serializing instances of `class`."
+  identity)
+
+(defmethod write-for :default [_] nil)
+
 (defn byteable?
-  "Return true if `class` implements the Byteable protocol."
+  "Return true if `class` has been made byteable."
   [^Class class] (boolean (read-for class)))
 
 (defn- assoc-meta
@@ -43,9 +49,10 @@ object.")
   (let [forms (map (partial fixup-meta class) forms)
         build-fmap #(assoc %1 (-> %2 first keyword) (list* 'fn %2))
         fmap (reduce build-fmap {} forms)]
-    `(let [fmap# ~fmap, read# (:read fmap#)]
+    `(let [fmap# ~fmap, {read# :read, write# :write} fmap#]
        (extend ~class Byteable fmap#)
-       (defmethod read-for ~class [_#] read#))))
+       (defmethod read-for ~class [_#] read#)
+       (defmethod write-for ~class [_#] write#))))
 
 (defmacro extend-byteable
   "Make one or more types serializable via the `Byteable` protocol.  Forms
